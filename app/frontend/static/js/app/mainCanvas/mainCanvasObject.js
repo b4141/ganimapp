@@ -18,7 +18,6 @@ export default class MainCanvasObject {
     this.ctx.beginPath();
     this.ctx.strokeStyle = "red";
     this.ctx.sRect(this.xPos, this.yPos, this.w, this.h);
-    this.ctx.stroke();
     this.ctx.closePath();
 
     //__points
