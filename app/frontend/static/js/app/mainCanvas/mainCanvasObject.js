@@ -1,5 +1,5 @@
 export default class MainCanvasObject {
-  constructor(xPos, yPos, w, h, imgSrc, ctx, origin) {
+  constructor(xPos, yPos, w, h, imgSrc, ctx) {
     this.xPos = xPos;
     this.yPos = yPos;
     this.w = w;
@@ -10,7 +10,6 @@ export default class MainCanvasObject {
     this.ctx = ctx;
     this.selected = true;
     this.hidden = false;
-    this.origin = origin;
   }
 
   drawBorder() {
@@ -18,7 +17,7 @@ export default class MainCanvasObject {
     if (!this.selected) { return }
     this.ctx.beginPath();
     this.ctx.strokeStyle = "red";
-    this.ctx.rect(this.xPos, this.yPos, this.w, this.h);
+    this.ctx.sRect(this.xPos, this.yPos, this.w, this.h);
     this.ctx.stroke();
     this.ctx.closePath();
 
@@ -59,7 +58,7 @@ export default class MainCanvasObject {
 
   draw() {
     if (this.hidden) { return }
-    this.ctx.drawImage(this.img, this.xPos+this.origin, this.yPos+this.origin, this.w+this.origin, this.h+this.origin);
+    this.ctx.drawImage(this.img, this.xPos, this.yPos, this.w, this.h);
     this.drawBorder();
   }
 
