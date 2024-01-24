@@ -18,4 +18,5 @@ body {
 
 .preview-container canvas {
   background-color: white;
+  background: url("../../imgs/gif/bg.gif") right bottom white;
 }
