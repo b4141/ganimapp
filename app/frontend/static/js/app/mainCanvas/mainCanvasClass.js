@@ -14,7 +14,7 @@ export default class MainCanvas {
     this.ctx = canvasElement.getContext("2d");
     this.constructCtx();
 
-    this.camera = { offsetX: parseInt(window.innerWidth / 2), offsetY: parseInt(window.innerHeight / 2), zoom: 1, MAX_ZOOM: 5, MIN_ZOOM: 0.1, SCROLL_SENSITIVITY: 0.0005 };
+    this.camera = { offsetX: parseInt(window.innerWidth / 2), offsetY: parseInt(window.innerHeight / 2), zoom: 1, MAX_ZOOM: 50, MIN_ZOOM: 0.1, SCROLL_SENSITIVITY: 0.005 };
     this.canvasDrag = { state: false, dragStart: { x: 0, y: 0 } }
     this.drawSelectAreaInfo = { state: false, selectStart: { x: 0, y: 0 } };
 
@@ -39,7 +39,7 @@ export default class MainCanvas {
   //___TODO___modify_this_function_its_only_a_place_holder
   loadObject(src) {
     if (!src) { return }
-    let object = new MainCanvasObject(0, 0, 100, 100, src, this.ctx);
+    let object = new MainCanvasObject(0, 0, 100, 100, src, this.ctx, this.camera);
     this.objects_on_canvas.push(object);
     object.img.onload = () => {
       object.draw();

@@ -1,55 +1,45 @@
 export default class MainCanvasObject {
-  constructor(xPos, yPos, w, h, imgSrc, ctx) {
+  constructor(xPos, yPos, w, h, imgSrc, ctx, camera) {
     this.xPos = xPos;
     this.yPos = yPos;
     this.w = w;
     this.h = h;
+    this.camera = camera;
 
     this.img = new Image();
     this.img.src = imgSrc;
     this.ctx = ctx;
     this.selected = true;
     this.hidden = false;
+    this.selectBorderStyle = {color:"#0d99ff", lineWidth: 3};
   }
 
   drawBorder() {
-    //__border
     if (!this.selected) { return }
+    let ratio = 1 / this.camera.zoom;
+    let zoom = this.camera.zoom;
+    this.ctx.scale(ratio, ratio);
+    this.ctx.lineWidth = this.selectBorderStyle.lineWidth;
+    this.ctx.strokeStyle = this.selectBorderStyle.color;
+    //__border
     this.ctx.beginPath();
-    this.ctx.strokeStyle = "red";
-    this.ctx.sRect(this.xPos, this.yPos, this.w, this.h);
+    this.ctx.sRect(this.xPos, this.yPos, this.w * zoom, this.h * zoom);
     this.ctx.closePath();
-
     //__points
-    let pointSize = 4;
-    this.ctx.beginPath();
-    this.ctx.strokeStyle = "red";
-    this.ctx.fillStyle = "black";
-    this.ctx.arc(this.xPos, this.yPos, pointSize, 0, 2 * Math.PI)
-    this.ctx.stroke();
-    this.ctx.fill();
-    this.ctx.closePath();
+    this.drawControllPoint((this.xPos) * zoom, (this.yPos) * zoom);
+    this.drawControllPoint((this.xPos) * zoom, (this.yPos + this.h) * zoom);
+    this.drawControllPoint((this.xPos + this.w) * zoom, (this.yPos) * zoom);
+    this.drawControllPoint((this.xPos + this.w) * zoom, (this.yPos + this.h) * zoom);
+    this.ctx.lineWidth = 1;
+    this.ctx.scale(zoom, zoom);
+  }
 
+  drawControllPoint(x, y) {
     this.ctx.beginPath();
-    this.ctx.strokeStyle = "red";
-    this.ctx.fillStyle = "black";
-    this.ctx.arc(this.xPos + this.w, this.yPos, pointSize, 0, 2 * Math.PI)
-    this.ctx.stroke();
-    this.ctx.fill();
-    this.ctx.closePath();
-
-    this.ctx.beginPath();
-    this.ctx.strokeStyle = "red";
-    this.ctx.fillStyle = "black";
-    this.ctx.arc(this.xPos + this.w, this.yPos + this.h, pointSize, 0, 2 * Math.PI)
-    this.ctx.stroke();
-    this.ctx.fill();
-    this.ctx.closePath();
-
-    this.ctx.beginPath();
-    this.ctx.strokeStyle = "red";
-    this.ctx.fillStyle = "black";
-    this.ctx.arc(this.xPos, this.yPos + this.h, pointSize, 0, 2 * Math.PI)
+    this.ctx.strokeStyle = this.selectBorderStyle.color;
+    this.ctx.fillStyle = "#ffffff";
+    this.ctx.sRect(x - 4, y - 4, 8, 8);
+    this.ctx.fRect(x - 3, y - 3, 7, 7);
     this.ctx.stroke();
     this.ctx.fill();
     this.ctx.closePath();
