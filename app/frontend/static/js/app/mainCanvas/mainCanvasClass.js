@@ -40,6 +40,7 @@ export default class MainCanvas {
   loadObject(src) {
     if (!src) { return }
     let object = new MainCanvasObject(0, 0, 100, 100, src, this.ctx, this.camera);
+    object.selected = true;
     this.objects_on_canvas.push(object);
     object.img.onload = () => {
       object.draw();
@@ -48,10 +49,20 @@ export default class MainCanvas {
 
   getEventLocation(event) {
     //___if_touch_or_click
+    //___careful_highly unlikely_but_it_may_lead_to_recursive_cause_its_being_called_by_getMousePos
     if (event.touches && event.touches.length == 1) {
       return { x: event.touches[0].clientX, y: event.touches[0].clientY }
     } else if (event.clientX && event.clientY) {
       return { x: event.clientX, y: event.clientY }
+    }
+  }
+
+  getMousePos(event) {
+    let { x, y } = this.getEventLocation(event);
+    let canvasRect = this.canvasElement.getBoundingClientRect();
+    return {
+      x: parseInt(x - canvasRect.left),
+      y: parseInt(y - canvasRect.top)
     }
   }
 
@@ -91,8 +102,8 @@ export default class MainCanvas {
 
   dragCanvasSetTrueFunc(event) {
     this.canvasDrag.state = true;
-    this.canvasDrag.dragStart.x = this.getEventLocation(event).x / this.camera.zoom - this.camera.offsetX;
-    this.canvasDrag.dragStart.y = this.getEventLocation(event).y / this.camera.zoom - this.camera.offsetY;
+    this.canvasDrag.dragStart.x = this.getMousePos(event).x / this.camera.zoom - this.camera.offsetX;
+    this.canvasDrag.dragStart.y = this.getMousePos(event).y / this.camera.zoom - this.camera.offsetY;
   }
 
   dragCanvasSetFalseFunc() {
@@ -100,8 +111,8 @@ export default class MainCanvas {
   }
 
   dragCanvasFunc(event) {
-    this.camera.offsetX = parseInt(this.getEventLocation(event).x / this.camera.zoom - this.canvasDrag.dragStart.x);
-    this.camera.offsetY = parseInt(this.getEventLocation(event).y / this.camera.zoom - this.canvasDrag.dragStart.y);
+    this.camera.offsetX = parseInt(this.getMousePos(event).x / this.camera.zoom - this.canvasDrag.dragStart.x);
+    this.camera.offsetY = parseInt(this.getMousePos(event).y / this.camera.zoom - this.canvasDrag.dragStart.y);
   }
 
   adjustCanvasZoom(event) {

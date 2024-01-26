@@ -9,7 +9,7 @@ export default class MainCanvasObject {
     this.img = new Image();
     this.img.src = imgSrc;
     this.ctx = ctx;
-    this.selected = true;
+    this.selected = false;
     this.hidden = false;
     this.selectBorderStyle = {color:"#0d99ff", lineWidth: 3};
   }
