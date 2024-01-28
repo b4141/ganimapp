@@ -37,9 +37,16 @@ export default class MainCanvas {
     }
   }
 
+  deselectAllObjectsOnCanvas() {
+    for (let i = 0; i < this.objects_on_canvas.length; i++) {
+      this.objects_on_canvas[i].selected = false;
+    }
+  }
+
   //___TODO___modify_this_function_its_only_a_place_holder
   loadImgObject(src) {
     if (!src) { return }
+    this.deselectAllObjectsOnCanvas();
     let object = new MainCanvasImgObject(0, 0, 100, 100, this.ctx, this.camera, src);
     object.selected = true;
     this.objects_on_canvas.push(object);
