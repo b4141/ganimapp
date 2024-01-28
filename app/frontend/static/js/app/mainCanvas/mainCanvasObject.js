@@ -8,7 +8,7 @@ export default class MainCanvasObject {
     this.ctx = ctx;
     this.selected = false;
     this.hidden = false;
-    this.selectBorderStyle = {color:"#0d99ff", lineWidth: 3};
+    this.selectBorderStyle = { color: "#0d99ff", lineWidth: 3 };
   }
 
   drawSelectionBorder() {
@@ -20,7 +20,7 @@ export default class MainCanvasObject {
     this.ctx.strokeStyle = this.selectBorderStyle.color;
     //__border
     this.ctx.beginPath();
-    this.ctx.sRect(this.xPos, this.yPos, this.w * zoom, this.h * zoom);
+    this.ctx.sRect(this.xPos * zoom, this.yPos * zoom, this.w * zoom, this.h * zoom);
     this.ctx.closePath();
     //__points
     this.drawControllPoint((this.xPos) * zoom, (this.yPos) * zoom);
