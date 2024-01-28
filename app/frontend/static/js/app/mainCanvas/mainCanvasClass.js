@@ -1,4 +1,5 @@
 import MainCanvasObject from "./mainCanvasObject.js";
+import MainCanvasImgObject from "./mainCanvasImgObject.js";
 
 export default class MainCanvas {
   constructor(canvasElement) {
@@ -37,9 +38,9 @@ export default class MainCanvas {
   }
 
   //___TODO___modify_this_function_its_only_a_place_holder
-  loadObject(src) {
+  loadImgObject(src) {
     if (!src) { return }
-    let object = new MainCanvasObject(0, 0, 100, 100, src, this.ctx, this.camera);
+    let object = new MainCanvasImgObject(0, 0, 100, 100, this.ctx, this.camera, src);
     object.selected = true;
     this.objects_on_canvas.push(object);
     object.img.onload = () => {

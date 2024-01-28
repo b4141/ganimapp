@@ -1,20 +1,17 @@
 export default class MainCanvasObject {
-  constructor(xPos, yPos, w, h, imgSrc, ctx, camera) {
+  constructor(xPos, yPos, w, h, ctx, camera) {
     this.xPos = xPos;
     this.yPos = yPos;
     this.w = w;
     this.h = h;
     this.camera = camera;
-
-    this.img = new Image();
-    this.img.src = imgSrc;
     this.ctx = ctx;
     this.selected = false;
     this.hidden = false;
     this.selectBorderStyle = {color:"#0d99ff", lineWidth: 3};
   }
 
-  drawBorder() {
+  drawSelectionBorder() {
     if (!this.selected) { return }
     let ratio = 1 / this.camera.zoom;
     let zoom = this.camera.zoom;
@@ -43,12 +40,6 @@ export default class MainCanvasObject {
     this.ctx.stroke();
     this.ctx.fill();
     this.ctx.closePath();
-  }
-
-  draw() {
-    if (this.hidden) { return }
-    this.ctx.drawImage(this.img, this.xPos, this.yPos, this.w, this.h);
-    this.drawBorder();
   }
 
   mouseOver(mouseXPos, mouseYPos) {
