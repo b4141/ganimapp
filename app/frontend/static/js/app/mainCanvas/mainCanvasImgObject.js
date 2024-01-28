@@ -10,6 +10,6 @@ export default class MainCanvasImgObject extends MainCanvasObject {
   draw() {
     if (this.hidden) { return }
     this.ctx.drawImage(this.img, this.xPos, this.yPos, this.w, this.h);
-    this.drawSelectionBorder();
+    this.drawBoundingBox();
   }
 }

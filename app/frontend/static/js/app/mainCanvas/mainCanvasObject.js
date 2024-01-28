@@ -9,9 +9,10 @@ export default class MainCanvasObject {
     this.selected = false;
     this.hidden = false;
     this.selectBorderStyle = { color: "#0d99ff", lineWidth: 3 };
+    this.boundingBox = new Path2D(`M${this.xPos} ${this.yPos} h ${this.w} v ${this.h} h ${-this.h} Z`);
   }
 
-  drawSelectionBorder() {
+  drawBoundingBox() {
     if (!this.selected) { return }
     let ratio = 1 / this.camera.zoom;
     let zoom = this.camera.zoom;
@@ -42,13 +43,9 @@ export default class MainCanvasObject {
     this.ctx.closePath();
   }
 
-  mouseOver(mouseXPos, mouseYPos) {
-    if (mouseXPos >= this.xPos && mouseXPos <= this.xPos + this.w) {
-      if (mouseYPos >= this.yPos && mouseYPos <= this.yPos + this.h) {
-        return true;
-      }
-    }
-    return false;
+  mouseOverBoundingBox(mouseXPos, mouseYPos) {
+    this.boundingBox = new Path2D(`M${this.xPos} ${this.yPos} h ${this.w} v ${this.h} h ${-this.h} Z`);
+    return this.ctx.isPointInPath(this.boundingBox, mouseXPos, mouseYPos);
   }
 
   inArea(areaXStart, areaYStart, areaXEnd, areaYEnd) {
