@@ -12,8 +12,8 @@ export default class MainCanvasImgObject extends MainCanvasObject {
     let ratio = 1 / this.camera.zoom;
     let zoom = this.camera.zoom;
     this.ctx.scale(ratio, ratio);
-    this.ctx.lineWidth = this.selectBorderStyle.lineWidth;
-    this.ctx.strokeStyle = this.selectBorderStyle.color;
+    this.ctx.lineWidth = this.ctx.objectBoundingBoxLineStyle.lineWidth ;
+    this.ctx.strokeStyle = this.ctx.objectBoundingBoxLineStyle.color;
     //__border
     this.ctx.beginPath();
     this.ctx.sRect(this.xPos * zoom, this.yPos * zoom, this.w * zoom, this.h * zoom);

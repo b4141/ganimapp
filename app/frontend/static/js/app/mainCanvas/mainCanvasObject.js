@@ -8,7 +8,6 @@ export default class MainCanvasObject {
     this.ctx = ctx;
     this.selected = false;
     this.hidden = false;
-    this.selectBorderStyle = { color: "#0d99ff", lineWidth: 3 };
     this.boundingBox = new Path2D(`M${this.xPos} ${this.yPos} h ${this.w} v ${this.h} h ${-this.h} Z`);
   }
 
@@ -17,8 +16,8 @@ export default class MainCanvasObject {
     let ratio = 1 / this.camera.zoom;
     let zoom = this.camera.zoom;
     this.ctx.scale(ratio, ratio);
-    this.ctx.lineWidth = this.selectBorderStyle.lineWidth;
-    this.ctx.strokeStyle = this.selectBorderStyle.color;
+    this.ctx.lineWidth = this.ctx.objectBoundingBoxLineStyle.lineWidth;
+    this.ctx.strokeStyle = this.ctx.objectBoundingBoxLineStyle.color;
     //__border
     this.ctx.beginPath();
     this.ctx.sRect(this.xPos * zoom, this.yPos * zoom, this.w * zoom, this.h * zoom);
@@ -34,7 +33,7 @@ export default class MainCanvasObject {
 
   drawControllPoint(x, y) {
     this.ctx.beginPath();
-    this.ctx.strokeStyle = this.selectBorderStyle.color;
+    this.ctx.strokeStyle = this.ctx.objectBoundingBoxLineStyle.color;
     this.ctx.fillStyle = "#ffffff";
     this.ctx.sRect(x - 4, y - 4, 8, 8);
     this.ctx.fRect(x - 3, y - 3, 7, 7);

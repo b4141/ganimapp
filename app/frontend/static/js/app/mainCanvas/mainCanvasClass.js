@@ -35,6 +35,8 @@ export default class MainCanvas {
       y = parseInt(y);
       this.fillRect(x, y, w, h);
     }
+
+    this.ctx.objectBoundingBoxLineStyle = { color: "#0d99ff", lineWidth: 3 };
   }
 
   deselectAllObjectsOnCanvas() {
