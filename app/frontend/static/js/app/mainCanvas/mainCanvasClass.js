@@ -57,23 +57,12 @@ export default class MainCanvas {
     }
   }
 
-  getEventLocation(event) {
-    //___if_touch_or_click
-    //___careful_highly unlikely_but_it_may_lead_to_recursive_cause_its_being_called_by_getMousePos
-    if (event.touches && event.touches.length == 1) {
-      return { x: event.touches[0].clientX, y: event.touches[0].clientY }
-    } else if (event.clientX && event.clientY) {
-      return { x: event.clientX, y: event.clientY }
-    }
-  }
-
   getMousePos(event) {
     if (!event) { return }
-    let { x, y } = this.getEventLocation(event);
     let canvasRect = this.canvasElement.getBoundingClientRect();
     return {
-      x: parseInt(x - canvasRect.left),
-      y: parseInt(y - canvasRect.top)
+      x: parseInt(event.clientX - canvasRect.left),
+      y: parseInt(event.clientY - canvasRect.top)
     }
   }
 
