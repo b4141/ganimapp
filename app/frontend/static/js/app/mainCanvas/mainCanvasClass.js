@@ -40,6 +40,7 @@ export default class MainCanvas {
   }
 
   deselectAllObjectsOnCanvas() {
+    this.selected_objects = [];
     for (let i = 0; i < this.objects_on_canvas.length; i++) {
       this.objects_on_canvas[i].selected = false;
     }
@@ -124,12 +125,31 @@ export default class MainCanvas {
     }
   }
 
+  leftMouseClick(event) {
+    let mousePos = this.getMousePos(event);
+    this.deselectAllObjectsOnCanvas();
+    for (let i = 0; i < this.objects_on_canvas.length; i++) {
+      if (this.objects_on_canvas[i].mouseOverBoundingBox(mousePos.x, mousePos.y)) {
+        this.objects_on_canvas[i].selected = true;
+        this.selected_objects.push(this.objects_on_canvas[i]);
+      }
+    }
+  }
+
+  middleMouseClick(event) {
+    this.dragCanvasSetTrueFunc(event);
+  }
+
   onMouseDown(event) {
     event.preventDefault();
-    //___if_middle_mouse_button
-    if (event.button === 1) {
-      this.dragCanvasSetTrueFunc(event);
+
+    if (event.button === 0) {
+      this.leftMouseClick(event);
+    } else if (event.button === 1) {
+      this.middleMouseClick(event)
     }
+
+    this.update(event);
   }
 
   onMouseUp(event) {
