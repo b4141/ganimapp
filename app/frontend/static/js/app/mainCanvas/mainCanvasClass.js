@@ -15,7 +15,7 @@ export default class MainCanvas {
     this.ctx = canvasElement.getContext("2d");
     this.constructCtx();
 
-    this.camera = { offsetX: parseInt(window.innerWidth / 2), offsetY: parseInt(window.innerHeight / 2), zoom: 1, MAX_ZOOM: 50, MIN_ZOOM: 0.1, SCROLL_SENSITIVITY: 0.005 };
+    this.camera = { offsetX: parseInt(window.innerWidth / 2), offsetY: parseInt(window.innerHeight / 2), zoom: 1, MAX_ZOOM: 50, MIN_ZOOM: 0.1, SCROLL_SENSITIVITY: 0.0005 };
     this.canvasDrag = { state: false, dragStart: { x: 0, y: 0 } }
     this.drawSelectAreaInfo = { state: false, selectStart: { x: 0, y: 0 } };
 
@@ -66,6 +66,7 @@ export default class MainCanvas {
   }
 
   getMousePos(event) {
+    if (!event) { return }
     let { x, y } = this.getEventLocation(event);
     let canvasRect = this.canvasElement.getBoundingClientRect();
     return {
@@ -89,12 +90,13 @@ export default class MainCanvas {
 
   }
 
-  update() {
+  update(event) {
+    let mousePos = this.getMousePos(event);
     this.updateCanvasDimensions();
     this.updateCamera();
     this.ctx.clearRect(-1, -1, this.canvasWidth + 1, this.canvasHeight + 1);
     for (let i = 0; i < this.objects_on_canvas.length; i++) {
-      this.objects_on_canvas[i].draw();
+      this.objects_on_canvas[i].draw(mousePos);
     }
   }
 
@@ -150,7 +152,7 @@ export default class MainCanvas {
       this.dragCanvasFunc(event);
     }
 
-    this.update();
+    this.update(event);
   }
 
   onWheel(event) {

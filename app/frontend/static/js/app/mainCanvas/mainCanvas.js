@@ -7,5 +7,9 @@ main_canvas.loadImgObject("./static/imgs/jpg/strawberry.jpg");
 main_canvas.objects_on_canvas[1].xPos = 150;
 main_canvas.objects_on_canvas[1].yPos = 150;
 
+main_canvas.loadImgObject("./static/imgs/jpg/strawberry.jpg");
+main_canvas.objects_on_canvas[2].xPos = 300;
+main_canvas.objects_on_canvas[2].yPos = 300;
+
 main_canvas.update();
 
