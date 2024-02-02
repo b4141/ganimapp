@@ -11,5 +11,8 @@ main_canvas.loadImgObject("./static/imgs/jpg/strawberry.jpg");
 main_canvas.objects_on_canvas[2].xPos = 300;
 main_canvas.objects_on_canvas[2].yPos = 300;
 
+main_canvas.objects_on_canvas[2].w = 95000;
+main_canvas.objects_on_canvas[2].h = 1000;
+
 main_canvas.update();
 

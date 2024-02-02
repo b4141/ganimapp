@@ -8,7 +8,7 @@ export default class MainCanvasObject {
     this.ctx = ctx;
     this.selected = false;
     this.hidden = false;
-    this.boundingBox = new Path2D(`M${this.xPos} ${this.yPos} h ${this.w} v ${this.h} h ${-this.h} Z`);
+    this.boundingBox = new Path2D(`M${this.xPos} ${this.yPos} h ${this.w} v ${this.h} h ${-this.w} Z`);
   }
 
   drawBoundingBox() {
@@ -43,7 +43,7 @@ export default class MainCanvasObject {
   }
 
   mouseOverBoundingBox(mouseXPos, mouseYPos) {
-    this.boundingBox = new Path2D(`M${this.xPos} ${this.yPos} h ${this.w} v ${this.h} h ${-this.h} Z`);
+    this.boundingBox = new Path2D(`M${this.xPos} ${this.yPos} h ${this.w} v ${this.h} h ${-this.w} Z`);
     return this.ctx.isPointInPath(this.boundingBox, mouseXPos, mouseYPos);
   }
 
