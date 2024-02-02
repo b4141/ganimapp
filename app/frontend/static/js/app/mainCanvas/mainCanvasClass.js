@@ -16,7 +16,7 @@ export default class MainCanvas {
     this.ctx = canvasElement.getContext("2d");
     this.constructCtx();
 
-    this.camera = { offsetX: window.innerWidth / 2, offsetY: window.innerHeight / 2, zoom: 1, MAX_ZOOM: 100, MIN_ZOOM: 0.02, SCROLL_SENSITIVITY: 0.005, SHOW_GRID_ZOOM: 10 };
+    this.camera = { offsetX: window.innerWidth / 2, offsetY: window.innerHeight / 2, zoom: 1, MAX_ZOOM: 100, MIN_ZOOM: 0.02, SCROLL_SENSITIVITY: 0.24, SHOW_GRID_ZOOM: 10 };
     this.canvasDrag = { state: false, dragStart: { x: 0, y: 0 } }
     this.drawSelectAreaInfo = { state: false, selectStart: { x: 0, y: 0 } };
 
@@ -162,7 +162,7 @@ export default class MainCanvas {
 
   adjustCanvasZoom(event) {
     if (!this.canvasDrag.state) {
-      this.camera.zoom -= event.deltaY * this.camera.SCROLL_SENSITIVITY;
+      this.camera.zoom -= Math.sign(event.deltaY) * (this.camera.SCROLL_SENSITIVITY * this.camera.zoom);
       this.camera.zoom = Math.min(this.camera.zoom, this.camera.MAX_ZOOM);
       this.camera.zoom = Math.max(this.camera.zoom, this.camera.MIN_ZOOM);
     }
