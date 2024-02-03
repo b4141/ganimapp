@@ -9,8 +9,8 @@ export default class MainCanvasImgObject extends MainCanvasObject {
 
   drawHoverBorder() {
     if (this.selected) { return }
-    this.ctx.lineWidth = this.ctx.objectBoundingBoxLineStyle.lineWidth / this.camera.zoom;
-    this.ctx.strokeStyle = this.ctx.objectBoundingBoxLineStyle.color;
+    this.ctx.lineWidth = this.ctx.style.objectBoundingBox.lineWidth / this.camera.zoom;
+    this.ctx.strokeStyle = this.ctx.style.objectBoundingBox.color;
     //__border
     this.ctx.beginPath();
     this.ctx.strokeRect(this.xPos, this.yPos, this.w, this.h);

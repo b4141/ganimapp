@@ -13,30 +13,27 @@ export default class MainCanvasObject {
 
   drawBoundingBox() {
     if (!this.selected) { return }
-    let ratio = 1 / this.camera.zoom;
-    let zoom = this.camera.zoom;
-    this.ctx.scale(ratio, ratio);
-    this.ctx.lineWidth = this.ctx.objectBoundingBoxLineStyle.lineWidth;
-    this.ctx.strokeStyle = this.ctx.objectBoundingBoxLineStyle.color;
+    this.ctx.lineWidth = this.ctx.style.objectBoundingBox.lineWidth / this.camera.zoom;
+    this.ctx.strokeStyle = this.ctx.style.objectBoundingBox.color;
     //__border
     this.ctx.beginPath();
-    this.ctx.sRect(this.xPos * zoom, this.yPos * zoom, this.w * zoom, this.h * zoom);
+    this.ctx.strokeRect(this.xPos, this.yPos, this.w, this.h);
     this.ctx.closePath();
     //__points
-    this.drawControllPoint((this.xPos) * zoom, (this.yPos) * zoom);
-    this.drawControllPoint((this.xPos) * zoom, (this.yPos + this.h) * zoom);
-    this.drawControllPoint((this.xPos + this.w) * zoom, (this.yPos) * zoom);
-    this.drawControllPoint((this.xPos + this.w) * zoom, (this.yPos + this.h) * zoom);
+    this.ctx.lineWidth = this.ctx.style.controllPoint.lineWidth / this.camera.zoom;
+    this.ctx.strokeStyle = this.ctx.style.objectBoundingBox.color;
+    this.ctx.fillStyle = this.ctx.style.controllPoint.color;
+    this.drawControllPoint((this.xPos), (this.yPos));
+    this.drawControllPoint((this.xPos), (this.yPos + this.h));
+    this.drawControllPoint((this.xPos + this.w), (this.yPos));
+    this.drawControllPoint((this.xPos + this.w), (this.yPos + this.h));
     this.ctx.lineWidth = 1;
-    this.ctx.scale(zoom, zoom);
   }
 
   drawControllPoint(x, y) {
     this.ctx.beginPath();
-    this.ctx.strokeStyle = this.ctx.objectBoundingBoxLineStyle.color;
-    this.ctx.fillStyle = "#ffffff";
-    this.ctx.sRect(x - 4, y - 4, 8, 8);
-    this.ctx.fRect(x - 3, y - 3, 7, 7);
+    this.ctx.strokeRect(x - 4 / this.camera.zoom, y - 4 / this.camera.zoom, 8 / this.camera.zoom, 8 / this.camera.zoom);
+    this.ctx.fillRect(x - 3 / this.camera.zoom, y - 3 / this.camera.zoom, 6 / this.camera.zoom, 6 / this.camera.zoom);
     this.ctx.stroke();
     this.ctx.fill();
     this.ctx.closePath();

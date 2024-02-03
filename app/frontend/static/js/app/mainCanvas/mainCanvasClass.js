@@ -10,7 +10,7 @@ export default class MainCanvas {
     this.canvasElement.onmouseup = (event) => this.onMouseUp(event);
     this.canvasElement.onmousemove = (event) => this.onMouseMove(event);
     this.canvasElement.onwheel = (event) => this.onWheel(event);
-    this.style = { selectArea: { stoke: "#0d99ff", fill: "#0d99ff33", lineWidth: 1 }, objectBoundingBox: { color: "#0d99ff", lineWidth: 3 } }
+    this.style = { selectArea: { stoke: "#0d99ff", fill: "#0d99ff33", lineWidth: 1 }, objectBoundingBox: { color: "#0d99ff", lineWidth: 2 }, controllPoint: { color: "#ffffff", lineWidth: 2 } }
 
 
     this.ctx = canvasElement.getContext("2d");
@@ -37,7 +37,7 @@ export default class MainCanvas {
       this.fillRect(x, y, w, h);
     }
 
-    this.ctx.objectBoundingBoxLineStyle = this.style.objectBoundingBox;
+    this.ctx.style = this.style;
   }
 
   deselectAllObjectsOnCanvas() {
