@@ -16,7 +16,7 @@ export default class MainCanvas {
     this.ctx = canvasElement.getContext("2d");
     this.constructCtx();
 
-    this.camera = { offsetX: window.innerWidth / 2, offsetY: window.innerHeight / 2, zoom: 1, MAX_ZOOM: 100, MIN_ZOOM: 0.02, SCROLL_SENSITIVITY: 0.24, SHOW_GRID_ZOOM: 10 };
+    this.camera = { offsetX: 0, offsetY: 0, zoom: 1, MAX_ZOOM: 100, MIN_ZOOM: 0.02, SCROLL_SENSITIVITY: 0.24, SHOW_GRID_ZOOM: 10 };
     this.canvasDrag = { state: false, dragStart: { x: 0, y: 0 } }
     this.drawSelectAreaInfo = { state: false, selectStart: { x: 0, y: 0 } };
 
@@ -72,15 +72,15 @@ export default class MainCanvas {
     if (!event) { return }
     let mousePos = this.getMousePos(event);
     return {
-      x: (mousePos.x / this.camera.zoom) - this.camera.offsetX,
-      y: (mousePos.y / this.camera.zoom) - this.camera.offsetY
+      x: (mousePos.x - (window.innerWidth / 2)) / this.camera.zoom - this.camera.offsetX,
+      y: (mousePos.y - (window.innerHeight / 2)) / this.camera.zoom - this.camera.offsetY,
     }
   }
 
   getScreenToCanvasPos(x, y) {
     return {
-      x: (x / this.camera.zoom) - this.camera.offsetX,
-      y: (y / this.camera.zoom) - this.camera.offsetY
+      x: (x - (window.innerWidth / 2)) / this.camera.zoom - this.camera.offsetX,
+      y: (y - (window.innerHeight / 2)) / this.camera.zoom - this.camera.offsetY,
     }
   }
 
@@ -92,8 +92,8 @@ export default class MainCanvas {
   }
 
   updateCamera() {
-    //___Translate_to_canvas_center_before_zooming_to_zoom_on_center
-    // this.ctx.translate(parseInt(window.innerWidth / 2), parseInt(window.innerHeight / 2));
+    //___Translate_to_canvas_center_before_zooming__to_zoom_on_center
+    this.ctx.translate(window.innerWidth / 2, window.innerHeight / 2);
     this.ctx.scale(this.camera.zoom, this.camera.zoom);
     this.ctx.translate(this.camera.offsetX, this.camera.offsetY);
   }
@@ -117,10 +117,10 @@ export default class MainCanvas {
     }
   }
 
-  drawSelectAreaSetTrueFunc(mousePos) {
+  drawSelectAreaSetTrueFunc(event) {
     this.drawSelectAreaInfo.state = true;
-    this.drawSelectAreaInfo.selectStart.x = (mousePos.x / this.camera.zoom) - this.camera.offsetX;
-    this.drawSelectAreaInfo.selectStart.y = (mousePos.y / this.camera.zoom) - this.camera.offsetY;
+    this.drawSelectAreaInfo.selectStart.x =  this.getMousePosOnCanvas(event).x;
+    this.drawSelectAreaInfo.selectStart.y =  this.getMousePosOnCanvas(event).y;
   }
 
   drawSelectAreaSetFalseFunc() {
@@ -178,7 +178,7 @@ export default class MainCanvas {
       }
     }
     if (this.selected_objects.length == 0) {
-      this.drawSelectAreaSetTrueFunc(mousePos);
+      this.drawSelectAreaSetTrueFunc(event);
     }
   }
 
