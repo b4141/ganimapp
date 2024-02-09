@@ -119,8 +119,8 @@ export default class MainCanvas {
 
   drawSelectAreaSetTrueFunc(event) {
     this.drawSelectAreaInfo.state = true;
-    this.drawSelectAreaInfo.selectStart.x =  this.getMousePosOnCanvas(event).x;
-    this.drawSelectAreaInfo.selectStart.y =  this.getMousePosOnCanvas(event).y;
+    this.drawSelectAreaInfo.selectStart.x = this.getMousePosOnCanvas(event).x;
+    this.drawSelectAreaInfo.selectStart.y = this.getMousePosOnCanvas(event).y;
   }
 
   drawSelectAreaSetFalseFunc() {

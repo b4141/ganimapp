@@ -16,7 +16,7 @@ getMousePos(event){
 }
 ```
 
-the canvas will be updated on some events like mouse mouvment or mouse clicks and on each update
+the canvas will be updated on some events like mouse mouvement or mouse clicks and on each update
 the camera will be updated
 ```javascript
 updateCamera() {
