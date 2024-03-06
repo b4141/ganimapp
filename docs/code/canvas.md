@@ -211,7 +211,7 @@ adjustCanvasZoom(event) {
 }
 ```
 
-drag wi'll be as follows:
+drag will be as follows:
 ```javascript
 dragCanvasFunc(event) {
   if (!this.canvasDrag.state) { return }
