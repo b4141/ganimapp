@@ -1,15 +1,15 @@
 import MainCanvasObject from "./mainCanvasObject.js";
 
 export default class MainCanvasImgObject extends MainCanvasObject {
-  constructor(xPos, yPos, w, h, ctx, camera, imgSrc) {
-    super(xPos, yPos, w, h, ctx, camera);
+  constructor(xPos, yPos, w, h, ctx, imgSrc) {
+    super(xPos, yPos, w, h, ctx);
     this.img = new Image();
     this.img.src = imgSrc;
   }
 
   drawHoverBorder() {
     if (this.selected) { return }
-    this.ctx.lineWidth = this.ctx.style.objectBoundingBox.lineWidth / this.camera.zoom;
+    this.ctx.lineWidth = this.ctx.style.objectBoundingBox.lineWidth / this.ctx.getTransform().a;
     this.ctx.strokeStyle = this.ctx.style.objectBoundingBox.color;
     //__border
     this.ctx.beginPath();

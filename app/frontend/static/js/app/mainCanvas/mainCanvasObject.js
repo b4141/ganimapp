@@ -1,10 +1,9 @@
 export default class MainCanvasObject {
-  constructor(xPos, yPos, w, h, ctx, camera) {
+  constructor(xPos, yPos, w, h, ctx) {
     this.xPos = xPos;
     this.yPos = yPos;
     this.w = w;
     this.h = h;
-    this.camera = camera;
     this.ctx = ctx;
     this.selected = false;
     this.hidden = false;
@@ -13,14 +12,14 @@ export default class MainCanvasObject {
 
   drawBoundingBox() {
     if (!this.selected) { return }
-    this.ctx.lineWidth = this.ctx.style.objectBoundingBox.lineWidth / this.camera.zoom;
+    this.ctx.lineWidth = this.ctx.style.objectBoundingBox.lineWidth / this.ctx.getTransform().a;
     this.ctx.strokeStyle = this.ctx.style.objectBoundingBox.color;
     //__border
     this.ctx.beginPath();
     this.ctx.strokeRect(this.xPos, this.yPos, this.w, this.h);
     this.ctx.closePath();
     //__points
-    this.ctx.lineWidth = this.ctx.style.controllPoint.lineWidth / this.camera.zoom;
+    this.ctx.lineWidth = this.ctx.style.controllPoint.lineWidth / this.ctx.getTransform().a;
     this.ctx.strokeStyle = this.ctx.style.objectBoundingBox.color;
     this.ctx.fillStyle = this.ctx.style.controllPoint.color;
     this.drawControllPoint((this.xPos), (this.yPos));
@@ -32,8 +31,8 @@ export default class MainCanvasObject {
 
   drawControllPoint(x, y) {
     this.ctx.beginPath();
-    this.ctx.strokeRect(x - 4 / this.camera.zoom, y - 4 / this.camera.zoom, 8 / this.camera.zoom, 8 / this.camera.zoom);
-    this.ctx.fillRect(x - 3 / this.camera.zoom, y - 3 / this.camera.zoom, 6 / this.camera.zoom, 6 / this.camera.zoom);
+    this.ctx.strokeRect(x - 4 / this.ctx.getTransform().a, y - 4 / this.ctx.getTransform().a, 8 / this.ctx.getTransform().a, 8 / this.ctx.getTransform().a);
+    this.ctx.fillRect(x - 3 / this.ctx.getTransform().a, y - 3 / this.ctx.getTransform().a, 6 / this.ctx.getTransform().a, 6 / this.ctx.getTransform().a);
     this.ctx.stroke();
     this.ctx.fill();
     this.ctx.closePath();
