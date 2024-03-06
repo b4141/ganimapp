@@ -172,7 +172,7 @@ here we have used the **2D affine transformation**
 - x_o = a * x_i + c * y_i + e
 - y_o = b * x_i + d * y_i + f
 
-we'll guess what, the DOMMatrix can do the transfrom for us, if we used a DOMPoint, so let's do that:
+well guess what, the DOMMatrix can do the transfrom for us, if we used a DOMPoint, so let's do that:
 ```javascript
 getTransformedPoint(x, y) {
   const originalPoint = new DOMPoint(x, y);
