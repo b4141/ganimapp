@@ -115,7 +115,8 @@ export default class MainCanvas {
     }
 
     for (let i = 0; i < this.objects_on_canvas.length; i++) {
-      this.objects_on_canvas[i].draw(mousePos);
+      this.objects_on_canvas[i].updateIsMouseOver(mousePos);
+      this.objects_on_canvas[i].draw();
     }
 
     if (this.drawSelectAreaInfo.state) {

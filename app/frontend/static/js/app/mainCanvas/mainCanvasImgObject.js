@@ -5,6 +5,7 @@ export default class MainCanvasImgObject extends MainCanvasObject {
     super(xPos, yPos, w, h, ctx);
     this.img = new Image();
     this.img.src = imgSrc;
+    this.isMouseOver =  false;
   }
 
   drawHoverBorder() {
@@ -18,15 +19,17 @@ export default class MainCanvasImgObject extends MainCanvasObject {
     this.ctx.lineWidth = 1;
   }
 
-  draw(mousePos) {
+  updateIsMouseOver(mousePos){
+    if (!mousePos) { return }
+    this.isMouseOver = this.mouseOverBoundingBox(mousePos.x, mousePos.y);
+  }
+
+  draw() {
     if (this.hidden) { return }
     this.ctx.drawImage(this.img, this.xPos, this.yPos, this.w, this.h);
     this.drawBoundingBox();
 
-    //___if_no_mouse_cord_then_return_else_continue__event_below_are_mouse_related
-    if (!mousePos) { return }
-
-    if (this.mouseOverBoundingBox(mousePos.x, mousePos.y)) {
+    if (this.isMouseOver) {
       this.drawHoverBorder();
     }
 
